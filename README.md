@@ -70,6 +70,17 @@ The playbook performs:
 ✔ Automated configuration management
 
 ---
+## AWX Platform Screenshots
+
+### AWX Inventory
+![Inventory](screenshots/awx-inventory.png)
+
+### AWX Groups
+![Groups](screenshots/awx-groups.png)
+
+### AWX Hosts
+![Hosts](screenshots/awx-hosts.png)
+
 
 ## Future Improvements
 
