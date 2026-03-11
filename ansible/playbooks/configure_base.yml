@@ -1,0 +1,50 @@
+---
+- name: Configure Base Enterprise Linux System
+  hosts: all
+  become: yes
+
+  vars:
+    required_packages:
+      - vim
+      - git
+      - wget
+      - curl
+      - htop
+      - net-tools
+
+  tasks:
+
+    - name: Update all packages
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: Install EPEL repository
+      dnf:
+        name: epel-release
+        state: present
+
+    - name: Install required packages
+      dnf:
+        name: "{{ required_packages }}"
+        state: present
+
+    - name: Ensure chronyd is running
+      systemd:
+        name: chronyd
+        state: started
+        enabled: yes
+
+    - name: Disable root SSH login
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PermitRootLogin'
+        line: 'PermitRootLogin no'
+      notify: restart sshd
+
+  handlers:
+    - name: restart sshd
+      systemd:
+        name: sshd
+        state: restarted
+
