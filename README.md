@@ -19,6 +19,18 @@ The lab simulates how organizations automate Linux infrastructure using GitOps w
 
 ## Infrastructure Architecture
 
+GitHub / GitLab
+       │
+       ▼
+      AWX
+       │
+       ▼
+  Foreman / Katello
+       │
+       ▼
+ Linux Servers
+(dev / stage / prod)
+
 The environment contains several virtual machines connected through an internal lab network.
 
 Network:
