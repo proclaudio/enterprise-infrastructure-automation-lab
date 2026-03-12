@@ -19,17 +19,34 @@ The lab simulates how organizations automate Linux infrastructure using GitOps w
 
 ## Infrastructure Architecture
 
-GitHub / GitLab
-       │
-       ▼
-      AWX
-       │
-       ▼
-  Foreman / Katello
-       │
-       ▼
- Linux Servers
-(dev / stage / prod)
+## Infrastructure Architecture
+
+```mermaid
+flowchart LR
+    A[GitHub / GitLab<br>Source Control & CI/CD] --> B[AWX<br>Ansible Automation Platform]
+    B --> C[Foreman / Katello<br>Lifecycle & Content Management]
+    C --> D[Linux Infrastructure]
+
+    D --> E[dev-web-01<br>192.168.111.101]
+    D --> F[stage-web-01<br>192.168.111.102]
+    D --> G[prod-web-01<br>192.168.111.103]
+
+
+This diagram shows the **platform architecture**:
+
+GitHub/GitLab
+│
+▼
+AWX
+│
+▼
+Foreman/Katello
+│
+▼
+Linux Servers
+├ dev
+├ stage
+└ prod
 
 The environment contains several virtual machines connected through an internal lab network.
 
@@ -57,6 +74,52 @@ GitLab → AWX → Foreman → Linux Servers
 3. Foreman provides dynamic inventory and lifecycle management.
 4. Linux servers are automatically configured.
 
+
+---
+
+# 2️⃣ Automation Workflow Diagram
+
+Add this under a new section called **Automation Workflow**.
+
+```markdown
+## Automation Workflow
+
+```mermaid
+flowchart TD
+    A[Developer pushes code] --> B[GitHub / GitLab Repository]
+    B --> C[AWX Project Sync]
+    C --> D[AWX Job Template Execution]
+    D --> E[Ansible Playbook]
+    E --> F[Foreman Dynamic Inventory]
+    F --> G[Linux Servers Configured]
+
+    G --> H[dev environment]
+    G --> I[stage environment]
+    G --> J[prod environment]
+
+
+This diagram represents the **GitOps automation flow**:
+
+Git Push
+│
+▼
+GitHub/GitLab
+│
+▼
+AWX Sync
+│
+▼
+AWX Job
+│
+▼
+Ansible Playbook
+│
+▼
+Foreman Inventory
+│
+▼
+Linux Servers
+(dev / stage / prod
 ---
 
 ## Example Playbook
